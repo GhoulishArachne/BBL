@@ -1,0 +1,13 @@
+{
+  "name": "bbl",
+  "version": "1.0.0",
+  "description": "This workspace will implement a full-stack app for:\r - Dashboard KPIs\r - Inventory management (catalog/SKUs/stock/reorder thresholds + bulk CSV import)\r - Sales & Orders (status tracking Pending → Processing → Fulfilled)\r - Shipping & Tracking (shipments linked to orders + carrier + tracking)\r - Reports & Analytics (revenue trends, top products, order volume, inventory turnover)\r - CRM (customers, search/filter, activity/notes)\r - CRM ↔ Orders integration (customer profile shows purchase history, total spend, open shipments)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
