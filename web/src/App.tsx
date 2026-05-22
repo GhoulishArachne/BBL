@@ -32,13 +32,14 @@ export default function App() {
   const [csv, setCsv] = useState('sku,name,category,stock,reorderThreshold,price\nBBL-WTR-12,Sparkling Water 12 Pack,Beverage,88,60,30');
 
   const refresh = () => {
+    const base = import.meta.env.VITE_API_BASE_URL || '';
     void Promise.all([
-      axios.get<Kpis>('/api/kpis').then((res) => setKpis(res.data)),
-      axios.get<Product[]>('/api/inventory').then((res) => setProducts(res.data)),
-      axios.get<Order[]>('/api/orders').then((res) => setOrders(res.data)),
-      axios.get<Shipment[]>('/api/shipments').then((res) => setShipments(res.data)),
-      axios.get<Customer[]>('/api/customers').then((res) => setCustomers(res.data)),
-      axios.get<Reports>('/api/reports').then((res) => setReports(res.data)),
+      axios.get<Kpis>(`${base}/api/kpis`).then((res) => setKpis(res.data)),
+      axios.get<Product[]>(`${base}/api/inventory`).then((res) => setProducts(res.data)),
+      axios.get<Order[]>(`${base}/api/orders`).then((res) => setOrders(res.data)),
+      axios.get<Shipment[]>(`${base}/api/shipments`).then((res) => setShipments(res.data)),
+      axios.get<Customer[]>(`${base}/api/customers`).then((res) => setCustomers(res.data)),
+      axios.get<Reports>(`${base}/api/reports`).then((res) => setReports(res.data)),
     ]);
   };
 
@@ -60,17 +61,20 @@ export default function App() {
   }, [customers, customerSearch]);
 
   const updateOrderStatus = async (order: Order, status: string) => {
-    await axios.patch(`/api/orders/${order.id}`, { status });
+    const base = import.meta.env.VITE_API_BASE_URL || '';
+    await axios.patch(`${base}/api/orders/${order.id}`, { status });
     refresh();
   };
 
   const updateShipment = async (shipment: Shipment, status: string) => {
-    await axios.patch(`/api/shipments/${shipment.id}`, { status });
+    const base = import.meta.env.VITE_API_BASE_URL || '';
+    await axios.patch(`${base}/api/shipments/${shipment.id}`, { status });
     refresh();
   };
 
   const importCsv = async () => {
-    await axios.post('/api/inventory/import', { csv });
+    const base = import.meta.env.VITE_API_BASE_URL || '';
+    await axios.post(`${base}/api/inventory/import`, { csv });
     refresh();
   };
 
